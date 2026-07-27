@@ -1,0 +1,5 @@
+2 fields NAME and SECTION
+1 submit for this
+
+1 table display with Edit button for each rows
+1 button for Delete, once click checkbox will appear with each rows 
