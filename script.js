@@ -17,23 +17,6 @@ function addStudentandSection(event)
     renderTableNameAndSection();
 }  
 
-function renderTableNameAndSection()
-{
-    console.log("Rendering Table");
-
-    const newRow = student.map((student,index) => `
-                                <tr>
-                                     <td>${student.name}</td>
-                                     <td>${student.section}</td>
-                                     <td>
-                                        <button class="editBtn" data-index = "${index}">Edit</button>
-                                        <button class="deleteBtn" data-index = "${index}">Delete</button>
-                                     </td>
-                                </tr>
-                                `).join("");
-    nameAndSectionTableBodyEL.innerHTML = newRow;
-}
-
 function editRowForTableNameAndSection(e)
 {
     console.log("Edit button clicked");
@@ -58,9 +41,7 @@ function editRowForTableNameAndSection(e)
         }
         
         renderTableNameAndSection();
-    }
-
-    
+    }    
 }
 
 function deleteRowForTableNameAndSection(e)
@@ -72,12 +53,36 @@ function deleteRowForTableNameAndSection(e)
     if(btn.classList.contains("deleteBtn"))
     {
         let index = btn.dataset.index;
+        if(confirm("Are you sure you want to delete this data for " + student[index].name))
+        {
             student.splice(index, 1); 
             renderTableNameAndSection();
+        }
+        else
+        {
+            alert("Action has been cancelled !");
+            console.log("Edit cancel");
+        }
         
     }
 }
 
+function renderTableNameAndSection()
+{
+    console.log("Rendering Table");
+
+    const newRow = student.map((student,index) => `
+                                <tr>
+                                     <td>${student.name}</td>
+                                     <td>${student.section}</td>
+                                     <td>
+                                        <button class="editBtn" data-index = "${index}">Edit</button>
+                                        <button class="deleteBtn" data-index = "${index}">Delete</button>
+                                     </td>
+                                </tr>
+                                `).join("");
+    nameAndSectionTableBodyEL.innerHTML = newRow;
+}
 nameAndSectionFormEL.addEventListener('submit', addStudentandSection);
 nameAndSectionTableEL.addEventListener('click', editRowForTableNameAndSection);
 nameAndSectionTableEL.addEventListener('click', deleteRowForTableNameAndSection);
