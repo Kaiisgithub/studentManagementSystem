@@ -25,8 +25,10 @@ function renderTableNameAndSection()
                                 <tr>
                                      <td>${student.name}</td>
                                      <td>${student.section}</td>
-                                     <td><button id = "editBtn" class="editBtn" data-index = "${index}">
-                                     Edit</button></td>
+                                     <td>
+                                        <button class="editBtn" data-index = "${index}">Edit</button>
+                                        <button class="deleteBtn" data-index = "${index}">Delete</button>
+                                     </td>
                                 </tr>
                                 `).join("");
     nameAndSectionTableBodyEL.innerHTML = newRow;
@@ -61,5 +63,21 @@ function editRowForTableNameAndSection(e)
     
 }
 
+function deleteRowForTableNameAndSection(e)
+{
+    console.log("Delete button clicked");
+
+    let btn = e.target;
+
+    if(btn.classList.contains("deleteBtn"))
+    {
+        let index = btn.dataset.index;
+            student.splice(index, 1); 
+            renderTableNameAndSection();
+        
+    }
+}
+
 nameAndSectionFormEL.addEventListener('submit', addStudentandSection);
 nameAndSectionTableEL.addEventListener('click', editRowForTableNameAndSection);
+nameAndSectionTableEL.addEventListener('click', deleteRowForTableNameAndSection);
